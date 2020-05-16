@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Ob havo</string>
+    <string name="main_temperature">16°</string>
+    <string name="temp1">16°</string>
+    <string name="day4">Juma</string>
+    <string name="temp5">,°</string>
+    <string name="day5">Shanba</string>
+    <string name="city_name">Tashkent</string>
+    <string name="day6">Yakshanba</string>
+    <string name="temp6">16°</string>
+    <string name="icon_description">icon</string>
+    <string name="icon2_desctiption">icon2</string>
+    <string name="background_image_description">background image</string>
+    <string name="icon6_description">icon6</string>
 </resources>

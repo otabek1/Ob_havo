@@ -15,7 +15,7 @@
         android:layout_marginStart="24dp"
         android:fontFamily="@font/gorditas"
         android:letterSpacing="0"
-        android:text="16°   "
+        android:text="°"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="60sp"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/gorditas_bold"
-        android:text="Tashkent"
+        android:text="!"
         android:textColor="#000000"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
@@ -44,6 +44,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@color/cardview_shadow_end_color"
+        android:contentDescription="@string/background_image_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrows" />
@@ -85,7 +86,7 @@
                 android:background="#6FDDDDDD"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="16°"
+                android:text="°"
                 android:textColor="#000000"
                 android:textSize="26dp" />
 
@@ -95,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:background="#6FDDDDDD"
-                android:contentDescription="TODO"
+                android:contentDescription="@string/icon_description"
                 android:foregroundGravity="center_vertical|center_horizontal"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_sunny" />
@@ -127,7 +128,7 @@
                 android:background="#6FDDDDDD"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="16°"
+                android:text="°"
                 android:textColor="#000000"
                 android:textSize="26dp" />
 
@@ -165,7 +166,7 @@
                 android:background="#6FDDDDDD"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="16°"
+                android:text="°"
                 android:textColor="#000000"
                 android:textSize="26dp" />
 
@@ -174,7 +175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#6FDDDDDD"
-                android:contentDescription="TODO"
+                android:contentDescription="@string/icon2_desctiption"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_sunny" />
 
@@ -206,7 +207,7 @@
                 android:background="#6FDDDDDD"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="16°"
+                android:text="°"
                 android:textColor="#000000"
                 android:textSize="26dp" />
 
@@ -232,7 +233,7 @@
                 android:background="#6FDDDDDD"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="Juma"
+                android:text="@string/day4"
                 android:textColor="#000000"
                 android:textSize="25sp" />
 
@@ -245,7 +246,7 @@
                 android:background="#6FDDDDDD"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="16°"
+                android:text="°"
                 android:textColor="#000000"
                 android:textSize="26dp" />
 
@@ -270,7 +271,7 @@
                 android:background="#6FDDDDDD"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="Shanba"
+                android:text="@string/day5"
                 android:textColor="#000000"
                 android:textSize="25sp" />
 
@@ -283,7 +284,7 @@
                 android:background="#6FDDDDDD"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="16°"
+                android:text="°"
                 android:textColor="#000000"
                 android:textSize="26dp" />
 
@@ -308,7 +309,7 @@
                 android:background="#6FDDDDDD"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="Yakshanba"
+                android:text="@string/day6"
                 android:textColor="#000000"
                 android:textSize="25sp" />
 
@@ -321,15 +322,16 @@
                 android:background="#6FDDDDDD"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:text="16°"
+                android:text="°"
                 android:textColor="#000000"
-                android:textSize="26dp" />
+                android:textSize="26sp" />
 
             <ImageView
                 android:id="@+id/icon6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#6FDDDDDD"
+                android:contentDescription="@string/icon6_description"
                 app:srcCompat="@drawable/ic_rainy" />
         </TableRow>
 
