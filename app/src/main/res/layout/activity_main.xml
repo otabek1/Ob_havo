@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wind2"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/gorditas"
+        android:letterSpacing="0"
+        android:text="16°   "
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="@+id/cityName"
+        app:layout_constraintStart_toStartOf="@+id/cityName"
+        app:layout_constraintTop_toBottomOf="@+id/cityName" />
+
+    <TextView
+        android:id="@+id/cityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/gorditas_bold"
+        android:text="Tashkent"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/changecity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/cardview_shadow_end_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrows" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:gravity="clip_horizontal|clip_vertical"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center|center_vertical"
+                android:text="Dushanba"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="16°"
+                android:textColor="#000000"
+                android:textSize="26dp" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="103dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#6FDDDDDD"
+                android:contentDescription="TODO"
+                android:foregroundGravity="center_vertical|center_horizontal"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_sunny" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/day1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Seshanba"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/temp1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="16°"
+                android:textColor="#000000"
+                android:textSize="26dp" />
+
+            <ImageView
+                android:id="@+id/icon1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#6FDDDDDD"
+                app:srcCompat="@drawable/ic_partcloudy" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/day2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Chorshanba"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/temp2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="16°"
+                android:textColor="#000000"
+                android:textSize="26dp" />
+
+            <ImageView
+                android:id="@+id/icon2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#6FDDDDDD"
+                android:contentDescription="TODO"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_sunny" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/day3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Payshanba"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/temp3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="16°"
+                android:textColor="#000000"
+                android:textSize="26dp" />
+
+            <ImageView
+                android:id="@+id/icon3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#6FDDDDDD"
+                app:srcCompat="@drawable/ic_snowing" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/day4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Juma"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/temp4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="16°"
+                android:textColor="#000000"
+                android:textSize="26dp" />
+
+            <ImageView
+                android:id="@+id/icon4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#6FDDDDDD"
+                app:srcCompat="@drawable/ic_partcloudy" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/day5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Shanba"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/temp5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="16°"
+                android:textColor="#000000"
+                android:textSize="26dp" />
+
+            <ImageView
+                android:id="@+id/icon5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#6FDDDDDD"
+                app:srcCompat="@drawable/ic_windy" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/day6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Yakshanba"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/temp6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#6FDDDDDD"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="16°"
+                android:textColor="#000000"
+                android:textSize="26dp" />
+
+            <ImageView
+                android:id="@+id/icon6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#6FDDDDDD"
+                app:srcCompat="@drawable/ic_rainy" />
+        </TableRow>
+
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
