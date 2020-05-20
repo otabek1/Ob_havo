@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="erroe_message">Something went wrong. Try again</string>
+    <string name="no_internet">No internet conncetions</string>
+    <string name="turn_wifi">Turn on Wi Fi</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_gps">GPS is turned off</string>
+    <string name="gps_settings">Turn on GPS</string>
+    <string name="city_identifying">Location is being identified</string>
+    <string name="be_patient">Be patient !!!</string>
+    <string name="shaharni_nomini_kiriting">Enter your city</string>
+    <string name="yoki">or</string>
+    <string name="gps_aniqlash">Use GPS</string>
+</resources>

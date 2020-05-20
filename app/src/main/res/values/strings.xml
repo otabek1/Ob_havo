@@ -12,4 +12,15 @@
     <string name="icon2_desctiption">icon2</string>
     <string name="background_image_description">background image</string>
     <string name="icon6_description">icon6</string>
+    <string name="erroe_message">Xatolik yuz berdi. Qayta urinib ko\'ring!</string>
+    <string name="no_internet">Internet mavjud emas</string>
+    <string name="turn_wifi">Wi Fi ni yoqish</string>
+    <string name="cancel">Bekor qilish</string>
+    <string name="no_gps">GPS Yoqilmagan</string>
+    <string name="gps_settings">GPS sozlamalarni ochish</string>
+    <string name="city_identifying">Shahar aniqlanmoqda. Bir oz sabr qiling . . .</string>
+    <string name="be_patient">Sabr qil dedimku ey inson :-)</string>
+    <string name="gps_aniqlash">GPS aniqlash</string>
+    <string name="shaharni_nomini_kiriting">Shaharni nomini kiriting</string>
+    <string name="yoki">yoki</string>
 </resources>

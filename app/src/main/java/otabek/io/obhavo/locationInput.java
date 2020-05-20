@@ -1,10 +1,5 @@
 package otabek.io.obhavo;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -25,22 +20,75 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import java.util.Arrays;
+
+import cz.msebera.android.httpclient.Header;
+
 
 public class locationInput extends AppCompatActivity {
+
+    //Memeber variables
     public int longitude;
     public int latitude;
     String message;
     int counter ;
+    // tag for logcat
     final String TAG = "aka";
     LocationManager mLocationManager;
     LocationListener mLocationListener;
 
-
+    // for check whether gps is on or off
     boolean gps_enabled = false;
     boolean network_enabled = false;
 
 
+    public void hasActiveInternetConnection() {
+        AsyncHttpClient check = new AsyncHttpClient();
+        check.get("https://google.com", new AsyncHttpResponseHandler() {
 
+            @Override
+            public void onStart() {
+                // called before request is started
+                Log.i(TAG, "onStart: ");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                // called when response HTTP status is "200 OK"
+//                Log.i(TAG, "onSuccess: "+response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Log.i(TAG, "onFailure: " + statusCode + " " + Arrays.toString(errorResponse));
+                AlertDialog.Builder builder = new AlertDialog.Builder(locationInput.this);
+                builder.setMessage(R.string.no_internet)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.turn_wifi, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, null);
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+    }
 
 
 
@@ -56,7 +104,7 @@ public class locationInput extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("CatchMayIgnoreException")
+
     private void getWeatherForCurrentLocation() {
 
         LocationManager lm = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
@@ -68,18 +116,18 @@ public class locationInput extends AppCompatActivity {
             gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         } catch(Exception ex) {}
 
-
+        //asking user to enable gps if not
         if(!gps_enabled && !network_enabled) {
             counter = -1;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("GPS Yoqilmagan");
-            builder.setPositiveButton("GPS sozlamalarni ochish", new DialogInterface.OnClickListener() {
+            builder.setMessage(R.string.no_gps);
+            builder.setPositiveButton(R.string.gps_settings, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                     locationInput.this.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                 }
             })
-                    .setNegativeButton("Bekor qilish", null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show();
             Log.i(TAG, "onCreate: enable gps");
             // notify user
@@ -127,9 +175,9 @@ public class locationInput extends AppCompatActivity {
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1000, mLocationListener);
         }
         if (counter == 0) {
-            message = "Shahar aniqlanmoqda. Bir oz sabr qiling . . .";
+            message = getString(R.string.city_identifying);
         } else if (counter > 0){
-            message = "Sabr qil dedimku ey inson :-)";
+            message = getString(R.string.be_patient);
         }
         if (counter != -1){
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
@@ -143,16 +191,12 @@ public class locationInput extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_input);
 
-
-
-        
-        
-        
-        
-
+        // linking variables with layouts
         final EditText cityName = findViewById(R.id.cityname);
         Button gpsFinder = findViewById(R.id.gps);
         ImageButton swapButton = findViewById(R.id.swap);
+
+
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,20 +244,20 @@ public class locationInput extends AppCompatActivity {
                 return false;
             }
         });
-
+        //checking user's internet connection
+        hasActiveInternetConnection();
 
     }
+
+    //exits app when back key is pressed
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (keyCode == KeyEvent.KEYCODE_BACK ) {
-            Log.i(TAG, "onKeyDown: ");
-          finishAffinity();
-          System.exit(0);
-
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
+
+
 
 }

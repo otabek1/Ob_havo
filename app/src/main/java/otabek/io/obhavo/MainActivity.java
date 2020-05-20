@@ -1,8 +1,5 @@
 package otabek.io.obhavo;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +14,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -35,14 +35,17 @@ import java.util.Random;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
-    String cityname;
 
-    final String TAG = "aka";
+    // Global variables
+    TextView day;
+    String cityname;
+    final String TAG = "aka";  //tag for logcat
     int latitude;
     int longitude;
     String API_KEY = "0674092fb1dd45d88c6da2b68b4f37c9";
     String url = "https://api.weatherbit.io/v2.0/forecast/daily?";
 
+    //changes icon based on the weather code
     private void iconSetter(int[] codes) {
         String[] iconNames = {" ", " ", " ", " ", " ", " ", " "};
         for (int i = 0; i < codes.length; i++) {
@@ -85,8 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    //sets temperature TextView based on passed data
     private void tempSetter(int[] codes) {
+        Log.i(TAG, "tempSetter: " + codes[0]);
+        TextView mainTemp = findViewById(R.id.temperature);
+        mainTemp.setText(codes[0] + "°");
         TextView[] weatherTemps = {
                 findViewById(R.id.temp),
                 findViewById(R.id.temp1),
@@ -98,11 +104,12 @@ public class MainActivity extends AppCompatActivity {
         };
 
         for (int i = 0; i < codes.length; i++) {
-            weatherTemps[i].setText(Integer.toString(codes[i]) + "°");
+            weatherTemps[i].setText(codes[i] + "°");
         }
 
     }
 
+    //check whether weather is windy for background image setting purposes based on wind speed
     private void isWindy(JSONObject response) throws JSONException {
         int windSpeed = ((int) response.getJSONArray("data").getJSONObject(0).getDouble("wind_spd"));
         if (windSpeed > 8) {
@@ -111,13 +118,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //updates background photo based on weather code
     private void updateBackgroundPhoto(int weatherCode) {
         String backPhotoName = null;
 
-
+        //choosing random number for one of the windy backgrounds
         Random rand = new Random();
         String randomNumber = String.valueOf(rand.nextInt(3));
-        if (weatherCode >= 202 && weatherCode <= 522) {
+        if (weatherCode >= 201 && weatherCode <= 522) {
             backPhotoName = "rain";
         }
         if (weatherCode >= 800 && weatherCode <= 804) {
@@ -140,9 +148,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void jsonParser(JSONObject response) throws JSONException {
+    // parses json data and calls needed function
+    private void jsonParser(JSONObject response) throws JSONException {
+        TextView mainTemperature = findViewById(R.id.temperature);
         TextView cityNameView = findViewById(R.id.cityName);
         cityNameView.setText(cityname);
+        //setting city name from weather data
         String cityNameFromJson = response.getString("city_name");
         cityNameView.setText(cityNameFromJson);
 
@@ -150,8 +161,9 @@ public class MainActivity extends AppCompatActivity {
         int[] weatherDegrees = {0, 0, 0, 0, 0, 0, 0};
         int todays_code = response.getJSONArray("data").getJSONObject(0).getJSONObject("weather").getInt("code");
         codes[0] = todays_code;
+        Log.i(TAG, "jsonParser: " + todays_code);
         updateBackgroundPhoto(todays_code);
-        for (int i = 1; i < 7; i++) {
+        for (int i = 0; i < 7; i++) {
             codes[i] = response.getJSONArray("data").getJSONObject(i).getJSONObject("weather").getInt("code");
             weatherDegrees[i] = (int) response.getJSONArray("data").getJSONObject(i).getDouble("temp");
         }
@@ -159,10 +171,9 @@ public class MainActivity extends AppCompatActivity {
         iconSetter(codes);
         tempSetter(weatherDegrees);
 
-
     }
 
-
+    //Gets weather data based on city name
     private void byCityName(String cityNamePassed) {
         RequestParams params = new RequestParams();
         params.put("city", cityNamePassed);
@@ -173,7 +184,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void byCordinates(int lat, int lon) {
+    //gets weather data based on coordinates
+    private void byCoordinates(int lat, int lon) {
         RequestParams params = new RequestParams();
         params.put("lat", lat);
         params.put("lon", lon);
@@ -181,10 +193,11 @@ public class MainActivity extends AppCompatActivity {
         params.put("key", API_KEY);
         hasActiveInternetConnection();
         getWeatherInfo(params);
-        Log.i(TAG, "byCordinates got: " + lat + " " + lon);
+        Log.i(TAG, "byCoordinates got: " + lat + " " + lon);
     }
 
-    public void getWeatherInfo(RequestParams params) {
+    //gets weather data from passed parameters
+    private void getWeatherInfo(RequestParams params) {
         Log.i(TAG, "getWeatherInfo: ");
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, params, new JsonHttpResponseHandler() {
@@ -210,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(TAG, "onSucces1s" + code);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Xatolik yuz berdi. Qayta urinib ko'ring!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.erroe_message, Toast.LENGTH_SHORT).show();
                     Log.i(TAG, "onSuccess2: " + e);
                 }
             }
@@ -226,7 +239,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void hasActiveInternetConnection() {
+    //checks whether user has internet connection
+    private void hasActiveInternetConnection() {
         AsyncHttpClient check = new AsyncHttpClient();
         check.get("https://google.com", new AsyncHttpResponseHandler() {
 
@@ -247,14 +261,14 @@ public class MainActivity extends AppCompatActivity {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                 Log.i(TAG, "onFailure: " + statusCode + " " + Arrays.toString(errorResponse));
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("Internet mavjud emas")
+                builder.setMessage(R.string.no_internet)
                         .setCancelable(false)
-                        .setPositiveButton("Wi Fi ni yoqish", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.turn_wifi, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
                             }
                         })
-                        .setNegativeButton("Bekor qilish", null);
+                        .setNegativeButton(R.string.cancel, null);
                 AlertDialog alert = builder.create();
                 alert.show();
             }
@@ -266,13 +280,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-    public String Capitalize(String lowerCaseDayOfTheWeek) {
+    //capitalizes weekday
+    private String Capitalize(String lowerCaseDayOfTheWeek) {
         return lowerCaseDayOfTheWeek.substring(0, 1).toUpperCase() + lowerCaseDayOfTheWeek.substring(1).toLowerCase();
     }
 
-
-    public String dayAdder(int numberOfdaysToadd) {
+    // gets weekday name by adding days to current day
+    private String dayAdder(int numberOfdaysToadd) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Date dt = new Date();
         Calendar c = Calendar.getInstance();
@@ -286,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    //saving user data before app gets destroyed
     @Override
     protected void onPause() {
         super.onPause();
@@ -305,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        //checking whether it is first time of using the app
         Intent getIntent = getIntent();
         cityname = getIntent.getStringExtra("city");
         if (cityname == null) {
@@ -319,16 +333,17 @@ public class MainActivity extends AppCompatActivity {
                 latitude = sharedPref.getInt("lat", 0);
                 longitude = sharedPref.getInt("lon", 0);
                 if (latitude != 0) {
-                    byCordinates(latitude, longitude);
+                    byCoordinates(latitude, longitude);
                 }
 
                 if (cityname.equals("0") && latitude == 0 && longitude == 0) {
                     Intent sendIntent = new Intent(MainActivity.this, locationInput.class);
+                    finish();
                     MainActivity.this.startActivity(sendIntent);
                 }
 
             } else {
-                byCordinates(latitude, longitude);
+                byCoordinates(latitude, longitude);
             }
             Log.i(TAG, "latitude " + latitude + " longitude" + longitude);
 
@@ -337,19 +352,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-//        byCityName(cityname);
-
-//            Log.i(TAG, "onCreate: " + cityname);
-
-
         setContentView(R.layout.activity_main);
 
-
+        //memeber variables
         TextView cityName = findViewById(R.id.cityname);
         TextView mainTemp = findViewById(R.id.temperature);
-
         ImageButton changeCityButton = findViewById(R.id.changecity);
 
+        //linking variables with layouts
         TextView cityNameView = findViewById(R.id.cityName);
         TextView day = findViewById(R.id.day);
         day.setText(dayAdder(0));
@@ -366,6 +376,8 @@ public class MainActivity extends AppCompatActivity {
         TextView day6 = findViewById(R.id.day6);
         day6.setText(dayAdder(6));
 
+//        day.setText(t);
+
         changeCityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -375,11 +387,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //Networking
-
-
     }
 
+    //exits app if back key is pressed
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
